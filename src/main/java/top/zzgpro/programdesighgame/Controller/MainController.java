@@ -18,10 +18,6 @@ public class MainController {
     @RequestMapping("/news")
     public String getNews(){
         newsService.getNews();
-//        //System.out.println(news);
-//       if(news!=null){
-//           return news;
-//       }
        return "";
     }
     @Autowired

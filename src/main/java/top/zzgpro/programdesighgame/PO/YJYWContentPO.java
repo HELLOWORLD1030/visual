@@ -1,12 +1,9 @@
 package top.zzgpro.programdesighgame.PO;
-
-import top.zzgpro.programdesighgame.VO.YJYWContentVO;
-
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * @author HELLO_WORLD
+ * 应急管理PO
  */
 public class YJYWContentPO  {
     private String title;

@@ -13,7 +13,17 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+/**
+ * HTTP工具类
+ */
 public class Httputil {
+    /**
+     * 获取关闭ssl验证的httpclient
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws KeyManagementException
+     * @throws KeyStoreException
+     */
     public static CloseableHttpClient getIgnoeSSLClient() throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
 
         SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, new TrustStrategy() {

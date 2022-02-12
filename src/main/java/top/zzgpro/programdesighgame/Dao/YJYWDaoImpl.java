@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Repository
+/**
+ * 应急要闻数据持久层实现
+ */
 public class YJYWDaoImpl implements YJYWDao{
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -24,9 +27,14 @@ public class YJYWDaoImpl implements YJYWDao{
 
     }
 
+    /**
+     * 从ArrayList中获取元素，批量存入数据库
+     * @param yjywContentPOArrayList
+     */
     @Override
     public void addfromList(ArrayList<YJYWContentPO> yjywContentPOArrayList) {
         String sql="INSERT INTO `yjywinfo`(`title`, `link`, `type`, `publishtime`) VALUES (?,?,?,str_to_date(?,'%Y-%m-%d %H:%i'))";
+        //重载部分方法，自定义插入的内容
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -60,12 +68,14 @@ public class YJYWDaoImpl implements YJYWDao{
         return null;
     }
 
+    /**
+     * 从数据库取出最晚的一条数据
+     * @param type 新闻类型
+     * @return
+     */
     @Override
     public YJYWContentPO queryLastone(int type) {
-        //String sql="select `publishtime` from yjywinfo limit 1";
         String sql="SELECT `title`,`link`,DATE_FORMAT(publishtime,'%Y-%m-%d %H:%i') as time  FROM `yjywinfo` WHERE type=? ORDER BY publishtime desc limit 1";
-        //String test=jdbcTemplate.queryForObject(sql,String.class);
-        //System.out.println(test);
         YJYWContentPO LastInfo = jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<YJYWContentPO>(YJYWContentPO.class),type);
         return LastInfo;
     }
